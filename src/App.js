@@ -1,26 +1,32 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Wrapper from './components/styled/Wrapper';
+
+import Card from './components/styled/Card'
+import Button from './components/styled/Button'
+import Selection from './components/Selection';
+import TextBox from './components/TextBox';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Wrapper>
+
+      <Card>
+        <TextBox />
+        <TextBox />
+        <Selection />
+        <Selection />
+
+        <Button text="Compare" onClick={() => console.log('compare')} />
+        <Button text="Historical Comparision" />
+        <Button text="Exchange Money" />
+      </Card>
+    </ Wrapper >
   );
 }
+
+
+
 
 export default App;
