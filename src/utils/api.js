@@ -46,7 +46,7 @@ function getHistoricalCurrencyRates(dateString, baseCurrency, conversionCurrency
 
 
 
-function getAvailableCurrencies() {
+export function getAvailableCurrencies() {
     return fetch(`${api}list${json}`, {
         "method": "GET",
         "headers": {
@@ -65,32 +65,26 @@ function getAvailableCurrencies() {
         })
 }
 
-function parseAvailableCurrenncies(obj, type) {
+function parseAvailableCurrenncies(obj) {
+    const stringArray = Object.values(obj)
+    const identifierArray = Object.keys(obj)
 
-    let identifierArray = []
-    let stringArray = []
-
-    for (let [identifier, string] of Object.entries(obj)) {
-        identifierArray.push(identifier)
-        stringArray.push(string)
-    }
-
-    switch (type) {
-        case 'string':
-            return stringArray
-            break;
-
-        case 'id':
-            return identifierArray
-            break;
+    return {
+        ids: identifierArray,
+        name: stringArray
     }
 }
 
 
 async function compareAllRates() {
-    let x = await getAvailableCurrencies()
-        .then(x => parseAvailableCurrenncies(x, 'id'))
-        .then(x => fetchAllRates(x))
+
+    //// NOT WORKING 
+    return await getAvailableCurrencies()
+        .then(res => console.log(res))
+        .then(currencies => parseAvailableCurrenncies(currencies))
+        .then(x => console.log(x.ids))
+
+        // .then(x => fetchAllRates(x))
         .then(x => console.log(x))
 
 }
@@ -106,7 +100,7 @@ async function fetchAllRates(ids) {
 }
 
 async function compareTwoRates(a, b) {
-    let x = await getCurrencyExchange(a, b, 1)
+    return await getCurrencyExchange(a, b, 1)
         .then(rate => console.log(rate))
 }
 
@@ -120,5 +114,63 @@ async function compareMultipleRates(base, arrayToCompare) {
 
 
 
-compareTwoRates('PLN', 'USD')
-compareAllRates()
+
+export function fupa(obj) {
+    let array = []
+
+    for (let [value, label] of Object.entries(obj)) {
+        array.push({ value, label })
+    }
+    return array
+
+
+}
+
+
+
+
+
+
+
+export function foo(code) {
+    getCountryDatabyCurrencyCode(code)
+}
+
+
+export function getCountryDatabyCurrencyCode(currency) {
+    // returns object with ALL countries that use that curency
+    return fetch(`https://restcountries.eu/rest/v2/currency/${currency}`)
+        .then(res => res.json())
+
+}
+
+function filterByCurrencyCode(item, code) {
+    if (item.currencies[0].code == 'USD') {
+        console.log(item)
+    }
+}
+
+
+export function filterResultsbyPopularCurrency(object) {
+    // filter results by  obj.currencies[0].code
+    // hopefully that first array item is the most popular currency and i can sort 
+    // down to  a couple of results 
+    object.filter(filterByCurrencyCode)
+
+}
+
+
+let example = 'USD'
+getCountryDatabyCurrencyCode(example)
+    .then(res => console.log(res))
+
+
+function getCountryDatabyName(name) {
+    return fetch(`https://restcountries.eu/rest/v2/name/${name}`)
+
+}
+
+
+
+
+

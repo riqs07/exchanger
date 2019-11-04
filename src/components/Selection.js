@@ -1,42 +1,40 @@
-import React, { Component } from 'react'
-import { } from '../utils/api'
+import React, { useState } from 'react'
+import { getAvailableCurrencies, fupa } from '../utils/api'
+import Select from 'react-select';
 
-import styled from 'styled-components'
 
-const Select = styled.select`
- border-radius: 5px;
-  padding: 20px 30px;
-  background-color: white;
-  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
-  box-shadow: 0 5px 10px rbga(0, 0, 0, 0.5);
-  color: #2e526b;
-font-size: 1.5rem;
-`
+const CurrencySelect = (props) => {
 
-export default class Selection extends Component {
+    const [selected, setSelected] = useState()
 
-    state = {
-        ids: ["USD", "CAN", "GBP", "YEN"]
+    const handleChange = (e) => {
+        setSelected(e.value)
+        props.test(e)
     }
 
+    return (
+        <Select
+            onChange={handleChange}
+            options={props.options}
+        />
 
-
-    render() {
-        return (
-            <div>
-                <Select>
-                    {
-                        this.state.ids.map(id => {
-                            return (
-                                <option key={id} value={id}>
-                                    {id}
-                                </option>
-                            )
-                        })
-                    }
-                </Select>
-
-            </div>
-        )
-    }
+    )
 }
+
+const MultiCurrencySelect = (props) => {
+
+    // find a way top have state hold multiple values 
+
+    return (
+        // going to need to find a way to limit the amount of inputs
+        <Select isMulti
+            options={props.options}
+
+        />
+
+    )
+}
+
+
+export default CurrencySelect
+

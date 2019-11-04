@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 
 
-const Button = styled.button`
+const Style = styled.button`
 border: 2px solid #408abf;
     background-color: #408abf;
     color: #eee;
@@ -14,18 +14,15 @@ border: 2px solid #408abf;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   margin: 10px;
 `
-export default class TextBox extends Component {
 
 
+const Button = (props) => {
+    return (
 
-    render() {
-        return (
-            <div>
-                <Button>
-                    {this.props.text}
-                </Button>
-
-            </div>
-        )
-    }
+        <Style>
+            {props.text}
+        </Style>
+    )
 }
+
+export default Button

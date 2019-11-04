@@ -3,7 +3,7 @@ import { } from '../utils/api'
 
 import styled from 'styled-components'
 
-const Box = styled.input`
+const Style = styled.input`
  border-radius: 5px;
   padding: 20px 30px;
   background-color: white;
@@ -13,17 +13,16 @@ const Box = styled.input`
 font-size: 1.5rem;
 `
 
-export default class TextBox extends Component {
 
 
-    render() {
-        return (
-            <div>
-                <Box>
+const TextBox = () => {
+    return (
 
-                </Box>
+        <Style>
 
-            </div>
-        )
-    }
+        </Style>
+
+    )
 }
+
+export default TextBox
