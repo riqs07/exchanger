@@ -14,7 +14,7 @@ function App() {
         <Exchange />
         <Button text="Compare" onClick={() => console.log('compare')} />
         <Button text="Historical Comparision" />
-        <Button text="Exchange Money" />
+        <Button text="Exchange Money 💱" />
       </Card>
     </ Wrapper >
   );

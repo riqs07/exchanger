@@ -17,7 +17,7 @@ function getCurrencyExchange(baseCurrency, conversionCurrency, amount) {
                 throw new Error(console.log('error'))
 
             }
-            return data.rates
+            return data
 
         })
 }
@@ -115,7 +115,7 @@ async function compareMultipleRates(base, arrayToCompare) {
 
 
 
-export function fupa(obj) {
+export function prepOptions(obj) {
     let array = []
 
     for (let [value, label] of Object.entries(obj)) {
@@ -129,11 +129,30 @@ export function fupa(obj) {
 
 
 
+export async function displayExchangeInfo(baseCurrency, exchangeCurrency, baseAmount, exchangeAmount) {
+
+    // Returns decimal 
+    return await getExchangeRate(baseCurrency, exchangeCurrency)
+        .then(rate => multiply(baseAmount, rate))
+        .then(val => console.log(val))
+
+}
 
 
+function multiply(num, rate) {
+    return num * rate
 
-export function foo(code) {
-    getCountryDatabyCurrencyCode(code)
+}
+
+displayExchangeInfo('USD', 'EUR', 5)
+
+
+function getExchangeRate(baseCurrency, exchangeCurrency) {
+
+    return getCurrencyExchange(baseCurrency, exchangeCurrency, 1)
+        .then(data => Object.values(data.rates))
+        .then(res => (parseFloat(res[0].rate)))
+
 }
 
 
@@ -144,9 +163,10 @@ export function getCountryDatabyCurrencyCode(currency) {
 
 }
 
-function filterByCurrencyCode(item, code) {
-    if (item.currencies[0].code == 'USD') {
-        console.log(item)
+function filterByCurrencyCode(item) {
+    if (item.currencies[0].code === 'USD') {
+        // only working with USD right now
+        console.log('This is set to USD at the moment')
     }
 }
 
@@ -160,16 +180,13 @@ export function filterResultsbyPopularCurrency(object) {
 }
 
 
-let example = 'USD'
-getCountryDatabyCurrencyCode(example)
-    .then(res => console.log(res))
+
 
 
 function getCountryDatabyName(name) {
     return fetch(`https://restcountries.eu/rest/v2/name/${name}`)
 
 }
-
 
 
 
