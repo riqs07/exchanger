@@ -6,111 +6,141 @@ import TextBox from '../components/TextBox'
 import { getAvailableCurrencies, prepOptions, displayExchangeInfo, } from '../utils/api'
 
 
-// const Exchanger = () => {
-//     const [options, setOptions] = useState()
-//     const [baseAmount, setBaseAmount] = useState(1)
-//     const [baseCurrencey, setBaseCurrencey] = useState('USD')
-//     const [exchangeCurrency, setExchangeCurrency] = useState('EUR')
-//     const [exchangeAmount, setExchangeAmount] = useState('EUR')
+const Exchange = () => {
+    const [baseAmount, setBaseAmount] = useState()
+    const [baseCurrencey, setBaseCurrencey] = useState()
+    const [exchangeCurrency, setExchangeCurrency] = useState()
+    const [exchangeAmount, setExchangeAmount] = useState()
+
+    console.log(baseCurrencey, exchangeCurrency)
+
+    useEffect((baseAmount, baseCurrencey, exchangeCurrency, exchangeAmount) => {
+
+        displayExchangeInfo(baseCurrencey, exchangeCurrency, 1, exchangeAmount)
+    }, [exchangeCurrency])
+
+    const setBase = (e) => setBaseCurrencey(e)
+    const setExchange = (e) => setExchangeCurrency(e)
 
 
-//     useEffect(() => {
-//         getAvailableCurrencies()
-//             .then(data => fupa(data))
-//             .then(data => setOptions(data))
-//     })
-
-//     liftValue = (value) => {
-//         console.log(value)
-//     }
-
-
-
-// }
-
-export default class Exchange extends Component {
-
-    // const [baseCurrencey,setBaseCurrency] = useState(1)
-
-    state = {
-        options: null,
-        baseAmount: null,
-        exchangeAmount: null,
-        baseCurrencey: null,
-        exchangeCurrency: null,
-
-    }
-
-    componentDidMount() {
-        getAvailableCurrencies()
-            .then(res => prepOptions(res))
-            .then(res => {
-                this.setState({
-                    options: res
-                })
-            })
-
-    }
-
-
-    // componentDidUpdate() {
-    //     this.setState((state), () => {
-    //         console.log('foo')
-    //     });
-    // }
-    setBase(e) {
-        // console.log(e)
-        this.setState({ baseCurrencey: e })
-    }
-    setExchange(e) {
-        this.setState({ exchangeCurrency: e })
-    }
-    setBaseAmount(e) {
+    const setBaseNum = (e) => {
         if (e > 0) {
-            this.setState({ baseAmount: e })
+            setBaseAmount(e)
         } else {
             console.log('Add error handle for negative nums')
 
         }
     }
-    setExchangeAmount(e) {
+
+    const setExchangeNum = (e) => {
         if (e > 0) {
-            this.setState({ exchangeAmount: e })
-        } else { console.log('Add error handle for negative nums') }
+            setExchangeAmount(e)
+        } else {
+            console.log('Add error handle for negative nums')
+        }
     }
 
 
-    setBase = this.setBase.bind(this)
-    setExchange = this.setExchange.bind(this)
-    setBaseAmount = this.setBaseAmount.bind(this)
-    setExchangeAmount = this.setExchangeAmount.bind(this)
+    return (
+        <div>
+            <TextBox monitor={setBaseNum} />
 
-    render() {
-        return (
-            <div>
-                <TextBox
-                    monitor={this.setBaseAmount}
-                />
+            <TextBox monitor={setExchangeNum} />
 
-                <TextBox
-                    monitor={this.setExchangeAmount}
-                />
+            <Selection monitor={setBase} />
 
-
-                <Selection
-                    options={this.state.options}
-                    monitor={this.setBase}
-
-                />
-
-                <Selection
-                    options={this.state.options}
-                    monitor={this.setExchange}
-                />
+            <Selection monitor={setExchange} />
 
 
 
-            </div>
-        )
-    }
+        </div>
+    )
+
 }
+
+export default Exchange
+
+// class Exchanger extends Component {
+
+//     // const [baseCurrencey,setBaseCurrency] = useState(1)
+
+//     state = {
+//         options: null,
+//         baseAmount: null,
+//         exchangeAmount: null,
+//         baseCurrencey: null,
+//         exchangeCurrency: null,
+
+//     }
+
+//     // componentDidMount() {
+//     //     getAvailableCurrencies()
+//     //         .then(res => prepOptions(res))
+//     //         .then(res => {
+//     //             this.setState({
+//     //                 options: res
+//     //             })
+//     //         })
+
+//     // }
+
+
+//     // useEffect(() => {
+//     //     console.log('goo')
+//     // })
+
+
+//     setBase(e) {
+//         // console.log(e)
+//         this.setState({ baseCurrencey: e })
+//     }
+//     setExchange(e) {
+//         this.setState({ exchangeCurrency: e })
+//     }
+//     setBaseAmount(e) {
+//         if (e > 0) {
+//             this.setState({ baseAmount: e })
+//         } else {
+//             console.log('Add error handle for negative nums')
+
+//         }
+//     }
+//     setExchangeAmount(e) {
+//         if (e > 0) {
+//             this.setState({ exchangeAmount: e })
+//         } else { console.log('Add error handle for negative nums') }
+//     }
+
+
+//     setBase = this.setBase.bind(this)
+//     setExchange = this.setExchange.bind(this)
+//     setBaseAmount = this.setBaseAmount.bind(this)
+//     setExchangeAmount = this.setExchangeAmount.bind(this)
+
+//     render() {
+//         return (
+//             <div>
+//                 <TextBox
+//                     monitor={this.setBaseAmount}
+//                 />
+
+//                 <TextBox
+//                     monitor={this.setExchangeAmount}
+//                 />
+
+
+//                 <Selection
+//                     monitor={this.setBase}
+
+//                 />
+
+//                 <Selection
+//                     monitor={this.setExchange}
+//                 />
+
+
+
+//             </div>
+//         )
+//     }
+// }

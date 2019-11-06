@@ -1,13 +1,24 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Select from 'react-select';
-import { foo } from '../utils/api';
+import { getAvailableCurrencies, prepOptions } from '../utils/api';
 
 
 const CurrencySelect = (props) => {
 
-    const { options, monitor } = props
+    const { monitor } = props
 
     const [selected, setSelected] = useState('USD')
+    const [options, setOptions] = useState()
+
+    // make it cahces in using this hook makes in call infinit
+    useEffect(() => {
+        getAvailableCurrencies()
+            .then(res => prepOptions(res))
+            .then(res => setOptions(res))
+            .then(console.log('f'))
+
+    }, [])
+
 
 
     const handleSelect = (e) => {
@@ -15,31 +26,11 @@ const CurrencySelect = (props) => {
         monitor(e.value)
     }
 
-
-    // async function handleSelect(e) {
-    //     await one(e.value)
-    //         .then(two)
-    // }
-
-    // function one(value) {
-    //     return new Promise(function (resolve, reject) {
-    //         setSelected(value)
-    //         resolve()
-    //     })
-    // }
-
-    // function two() {
-    //     console.log(selected)
-    // }
-
-
-
     return (
         <Select
             onChange={handleSelect}
             options={options}
             placeholder={'Select Currency 💱💱'}
-            codoe={selected}
         />
 
     )

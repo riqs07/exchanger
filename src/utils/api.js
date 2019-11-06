@@ -130,6 +130,7 @@ export function prepOptions(obj) {
 
 
 export async function displayExchangeInfo(baseCurrency, exchangeCurrency, baseAmount, exchangeAmount) {
+    console.log(baseCurrency, exchangeCurrency)
 
     // Returns decimal 
     return await getExchangeRate(baseCurrency, exchangeCurrency)
@@ -144,11 +145,10 @@ function multiply(num, rate) {
 
 }
 
-displayExchangeInfo('USD', 'EUR', 5)
+
 
 
 function getExchangeRate(baseCurrency, exchangeCurrency) {
-
     return getCurrencyExchange(baseCurrency, exchangeCurrency, 1)
         .then(data => Object.values(data.rates))
         .then(res => (parseFloat(res[0].rate)))
