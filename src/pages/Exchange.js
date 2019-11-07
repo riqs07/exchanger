@@ -1,9 +1,8 @@
-import React, { Component, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import Selection from '../components/Selection';
-import Button from '../components/styled/Button';
-
+import Button from '../components/styled/Button'
 import TextBox from '../components/TextBox'
-import { getAvailableCurrencies, prepOptions, displayExchangeInfo, } from '../utils/api'
+import { getExchangeRate } from '../utils/api'
 
 
 const Exchange = () => {
@@ -11,136 +10,72 @@ const Exchange = () => {
     const [baseCurrencey, setBaseCurrencey] = useState()
     const [exchangeCurrency, setExchangeCurrency] = useState()
     const [exchangeAmount, setExchangeAmount] = useState()
+    const [conversionRate, setConversionRate] = useState()
 
-    console.log(baseCurrencey, exchangeCurrency)
+    // small currencyies dont convert to big ones and shows NAN
+    // dong to usd 
+    // error on two of the same currenct
 
-    useEffect((baseAmount, baseCurrencey, exchangeCurrency, exchangeAmount) => {
+    useEffect(() => {
+        const flag = checkVals()
+        if (flag === true) {
+            getExchangeRate(baseCurrencey, exchangeCurrency)
+                .then(rate => setConversionRate(rate))
+                .then(getExchangeAmount())
+        }
 
-        displayExchangeInfo(baseCurrencey, exchangeCurrency, 1, exchangeAmount)
-    }, [exchangeCurrency])
+    }, [baseAmount, baseCurrencey, exchangeCurrency])
 
-    const setBase = (e) => setBaseCurrencey(e)
-    const setExchange = (e) => setExchangeCurrency(e)
+    const checkVals = () => {
+        if (baseAmount !== undefined &&
+            baseCurrencey !== undefined &&
+            exchangeCurrency !== undefined) {
+            return true
+        } else { return false }
+    }
 
+    const getExchangeAmount = () => {
+        let total = baseAmount * conversionRate
+        setExchangeAmount(total)
+    }
 
     const setBaseNum = (e) => {
-        if (e > 0) {
-            setBaseAmount(e)
-        } else {
-            console.log('Add error handle for negative nums')
-
-        }
+        e > 0 ? setBaseAmount(e)
+            : console.log('Add error handle for negative nums')
     }
 
     const setExchangeNum = (e) => {
-        if (e > 0) {
-            setExchangeAmount(e)
-        } else {
-            console.log('Add error handle for negative nums')
-        }
+        e > 0 ? setExchangeAmount(e)
+            : console.log('Add error handle for negative nums')
     }
+
+    // want it to work both ways a la the google one 
+    // so you can change the base and exchange currencies and it will update
 
 
     return (
         <div>
             <TextBox monitor={setBaseNum} />
 
-            <TextBox monitor={setExchangeNum} />
+            {exchangeAmount === undefined ? (
+                <Button text={'💱💱💱'} />
 
-            <Selection monitor={setBase} />
+            ) : (
+                    <Button text={exchangeAmount} />
+                )}
 
-            <Selection monitor={setExchange} />
 
+            <Button text={`The conversion rate is ${conversionRate}.
+            For every 1 ${baseCurrencey} you get ${conversionRate} of
+            ${exchangeCurrency}
+            `}
 
-
+            />
+            <Selection monitor={setBaseCurrencey} />
+            <Selection monitor={setExchangeCurrency} />
         </div>
     )
 
 }
 
 export default Exchange
-
-// class Exchanger extends Component {
-
-//     // const [baseCurrencey,setBaseCurrency] = useState(1)
-
-//     state = {
-//         options: null,
-//         baseAmount: null,
-//         exchangeAmount: null,
-//         baseCurrencey: null,
-//         exchangeCurrency: null,
-
-//     }
-
-//     // componentDidMount() {
-//     //     getAvailableCurrencies()
-//     //         .then(res => prepOptions(res))
-//     //         .then(res => {
-//     //             this.setState({
-//     //                 options: res
-//     //             })
-//     //         })
-
-//     // }
-
-
-//     // useEffect(() => {
-//     //     console.log('goo')
-//     // })
-
-
-//     setBase(e) {
-//         // console.log(e)
-//         this.setState({ baseCurrencey: e })
-//     }
-//     setExchange(e) {
-//         this.setState({ exchangeCurrency: e })
-//     }
-//     setBaseAmount(e) {
-//         if (e > 0) {
-//             this.setState({ baseAmount: e })
-//         } else {
-//             console.log('Add error handle for negative nums')
-
-//         }
-//     }
-//     setExchangeAmount(e) {
-//         if (e > 0) {
-//             this.setState({ exchangeAmount: e })
-//         } else { console.log('Add error handle for negative nums') }
-//     }
-
-
-//     setBase = this.setBase.bind(this)
-//     setExchange = this.setExchange.bind(this)
-//     setBaseAmount = this.setBaseAmount.bind(this)
-//     setExchangeAmount = this.setExchangeAmount.bind(this)
-
-//     render() {
-//         return (
-//             <div>
-//                 <TextBox
-//                     monitor={this.setBaseAmount}
-//                 />
-
-//                 <TextBox
-//                     monitor={this.setExchangeAmount}
-//                 />
-
-
-//                 <Selection
-//                     monitor={this.setBase}
-
-//                 />
-
-//                 <Selection
-//                     monitor={this.setExchange}
-//                 />
-
-
-
-//             </div>
-//         )
-//     }
-// }

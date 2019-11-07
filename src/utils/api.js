@@ -129,26 +129,22 @@ export function prepOptions(obj) {
 
 
 
-export async function displayExchangeInfo(baseCurrency, exchangeCurrency, baseAmount, exchangeAmount) {
-    console.log(baseCurrency, exchangeCurrency)
-
-    // Returns decimal 
-    return await getExchangeRate(baseCurrency, exchangeCurrency)
-        .then(rate => multiply(baseAmount, rate))
-        .then(val => console.log(val))
-
-}
+// export async function displayExchangeInfo(baseCurrency, exchangeCurrency) {
+//     // Returns decimal 
+//     return await getExchangeRate(baseCurrency, exchangeCurrency)
+//         .then(rate => multiply(rate))
+// }
 
 
-function multiply(num, rate) {
-    return num * rate
+// function multiply(rate) {
+//     return 1 * rate
 
-}
+// }
 
 
 
 
-function getExchangeRate(baseCurrency, exchangeCurrency) {
+export async function getExchangeRate(baseCurrency, exchangeCurrency) {
     return getCurrencyExchange(baseCurrency, exchangeCurrency, 1)
         .then(data => Object.values(data.rates))
         .then(res => (parseFloat(res[0].rate)))

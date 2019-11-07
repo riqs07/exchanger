@@ -7,7 +7,7 @@ const CurrencySelect = (props) => {
 
     const { monitor } = props
 
-    const [selected, setSelected] = useState('USD')
+    // const [selected, setSelected] = useState()
     const [options, setOptions] = useState()
 
     // make it cahces in using this hook makes in call infinit
@@ -15,16 +15,15 @@ const CurrencySelect = (props) => {
         getAvailableCurrencies()
             .then(res => prepOptions(res))
             .then(res => setOptions(res))
-            .then(console.log('f'))
-
     }, [])
 
 
 
     const handleSelect = (e) => {
-        setSelected(e.value)
+        // setSelected(e.value)
         monitor(e.value)
     }
+
 
     return (
         <Select
@@ -39,6 +38,7 @@ const CurrencySelect = (props) => {
 const MultiCurrencySelect = (props) => {
 
     // find a way top have state hold multiple values 
+
 
     return (
         // going to need to find a way to limit the amount of inputs
