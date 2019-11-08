@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import Selection from '../components/Selection';
 import Button from '../components/styled/Button'
 import TextBox from '../components/TextBox'
@@ -15,6 +15,7 @@ const Exchange = () => {
     // small currencyies dont convert to big ones and shows NAN
     // dong to usd 
     // error on two of the same currenct
+    // text box dosent update automatically on select change 
 
     useEffect(() => {
         const flag = checkVals()
@@ -35,6 +36,7 @@ const Exchange = () => {
     }
 
     const getExchangeAmount = () => {
+        // maybe add this to back end and return the total and then have the useeffect render it 
         let total = baseAmount * conversionRate
         setExchangeAmount(total)
     }
@@ -54,7 +56,7 @@ const Exchange = () => {
 
 
     return (
-        <div>
+        <Fragment>
             <TextBox monitor={setBaseNum} />
 
             {exchangeAmount === undefined ? (
@@ -73,7 +75,7 @@ const Exchange = () => {
             />
             <Selection monitor={setBaseCurrencey} />
             <Selection monitor={setExchangeCurrency} />
-        </div>
+        </Fragment>
     )
 
 }

@@ -23,7 +23,7 @@ function getCurrencyExchange(baseCurrency, conversionCurrency, amount) {
 }
 
 
-function getHistoricalCurrencyRates(dateString, baseCurrency, conversionCurrency) {
+export function getHistoricalCurrencyRates(dateString, baseCurrency, conversionCurrency) {
     // Date String format : YYYY-MM-DD
     return fetch(`${api}historical/${dateString}${json}&to=${conversionCurrency}&from=${baseCurrency}&${1}`, {
         "method": "GET",
@@ -35,12 +35,8 @@ function getHistoricalCurrencyRates(dateString, baseCurrency, conversionCurrency
         .then(data => {
             if (data.error) {
                 throw new Error(console.log(data.error.message))
-
             }
-            return data
-
-            //data.rates
-
+            return data.rates
         })
 }
 
@@ -127,23 +123,6 @@ export function prepOptions(obj) {
 }
 
 
-
-
-// export async function displayExchangeInfo(baseCurrency, exchangeCurrency) {
-//     // Returns decimal 
-//     return await getExchangeRate(baseCurrency, exchangeCurrency)
-//         .then(rate => multiply(rate))
-// }
-
-
-// function multiply(rate) {
-//     return 1 * rate
-
-// }
-
-
-
-
 export async function getExchangeRate(baseCurrency, exchangeCurrency) {
     return getCurrencyExchange(baseCurrency, exchangeCurrency, 1)
         .then(data => Object.values(data.rates))
@@ -151,11 +130,35 @@ export async function getExchangeRate(baseCurrency, exchangeCurrency) {
 
 }
 
+export async function getHistoricalExchangeRate(date, baseCurrency, exchangeCurrency) {
+    return getHistoricalCurrencyRates(date, baseCurrency, exchangeCurrency)
+        .then(data => Object.values(data))
+        .then(res => (parseFloat(res[0].rate)))
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 export function getCountryDatabyCurrencyCode(currency) {
     // returns object with ALL countries that use that curency
     return fetch(`https://restcountries.eu/rest/v2/currency/${currency}`)
         .then(res => res.json())
+        .then(data => {
+            if (data.error) {
+                throw new Error(console.log(data.error.message))
+            }
+            return data
+        })
 
 }
 
