@@ -149,6 +149,7 @@ export async function getHistoricalExchangeRate(date, baseCurrency, exchangeCurr
 
 
 
+
 export function getCountryDatabyCurrencyCode(currency) {
     // returns object with ALL countries that use that curency
     return fetch(`https://restcountries.eu/rest/v2/currency/${currency}`)

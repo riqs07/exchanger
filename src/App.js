@@ -1,24 +1,43 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import './App.css';
 import Wrapper from './components/styled/Wrapper';
 
 import Card from './components/styled/Card'
-import Button from './components/styled/Button'
 import Exchange from './pages/Exchange'
 import Comparison from './pages/Comparison';
+import PageNotFound from './pages/PageNotFound';
+import Home from './pages/Home';
+import Nav from './components/Nav'
 import CurrencyFinder from './pages/CurrencyFind';
+
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+
 
 function App() {
   return (
-    <Wrapper>
+    <Fragment>
+      <Router>
+        <Nav />
 
-      <Card>
-        <CurrencyFinder />
-        {/* <Button text="Compare" onClick={() => console.log('compare')} />
-        <Button text="Historical Comparision" />
-        <Button text="Exchange Money 💱" /> */}
-      </Card>
-    </ Wrapper >
+        <Wrapper>
+
+          <Card>
+
+            <Switch>
+              <Route exact path='/home' component={Home} />
+              <Route exact path='/comparison' component={Comparison} />
+              <Route exact path='/exchange' component={Exchange} />
+              <Route path='/currencyFinder' component={CurrencyFinder} />
+              <Route render={PageNotFound} />
+            </Switch>
+
+          </Card>
+        </ Wrapper >
+
+      </Router>
+
+    </Fragment>
+
   );
 }
 

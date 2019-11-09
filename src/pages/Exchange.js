@@ -57,6 +57,8 @@ const Exchange = () => {
 
     return (
         <Fragment>
+            <h1>International Currency Exchange</h1>
+
             <TextBox monitor={setBaseNum} />
 
             {exchangeAmount === undefined ? (

@@ -1,22 +1,21 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import CountryCard from './CountryCard';
 
 
+// only if more than one 
+// if one then show the Country card 
+// else organize into a grid where user can then click and 
+// pill up full screen of country info
 const Grid = styled.div`
-outline:2px solid red;
 `
 
-const img = {
-    height: '200px',
-    width: '200px'
-}
 /// has to do with how to props are being passed in 
 // add a loading component 
 
 const CountryGrid = (props) => {
     const { countries } = props
-    console.log(countries)
+
     return (
         <Grid>
 
@@ -24,8 +23,9 @@ const CountryGrid = (props) => {
 
                 {countries.map(country => {
                     return (
-                        <li key={country.alpha3Code}>
 
+
+                        <li key={country.alpha3Code}>
                             <CountryCard info={country} />
                         </li>
 
@@ -35,6 +35,5 @@ const CountryGrid = (props) => {
         </Grid>
     )
 }
-
 
 export default CountryGrid

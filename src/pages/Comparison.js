@@ -45,8 +45,11 @@ const Comparison = () => {
 
     return (
         <Fragment >
-            <h1>{historicalRate}</h1>
-            <h1>{historicalDate}</h1>
+
+            <h1>Historical Date Comparison</h1>
+
+            <h2>{historicalRate}</h2>
+            <h2>{historicalDate}</h2>
             <Selection monitor={setBaseCurrencey} />
             <Selection monitor={setExchangeCurrency} />
             <DaySelect monitor={setHistoricalDate} />
