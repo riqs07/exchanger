@@ -7,17 +7,18 @@ import { GiTakeMyMoney } from 'react-icons/gi'
 //Button Nav && Theme Select
 
 const activeStyle = {
-    color: 'red'
+    color: 'red',
 }
 
 const Li = styled.li`
 list-style:none;
 display:inline;
+margin-right: 10px;
 `
 
 const Style = styled.nav`
-background-color:blue;
-width:100vw;
+    margin:0px;
+background-color:#2e526b;
 height:5vh;
 `
 
@@ -34,7 +35,7 @@ export default class Nav extends Component {
                             activeStyle={activeStyle} >
 
                             <FaHome
-                                color='rgb(194,57,42)' size={26} />
+                                color='#008000' size={35} />
 
                         </NavLink>
                     </Li>
@@ -44,7 +45,7 @@ export default class Nav extends Component {
                             exact
                             activeStyle={activeStyle} >
                             <GiTakeMyMoney
-                                color='rgb(194,57,42)' size={26} />
+                                color='#008000' size={35} />
                         </NavLink>
                     </Li>
                     <Li>
@@ -54,7 +55,7 @@ export default class Nav extends Component {
                             activeStyle={activeStyle}>
 
                             <FaHistory
-                                color='rgb(194,57,42)' size={26} />
+                                color='#008000' size={35} />
 
                         </NavLink>
                     </Li>
@@ -65,7 +66,7 @@ export default class Nav extends Component {
                             activeStyle={activeStyle} >
 
                             <FaSearchDollar
-                                color='rgb(194,57,42)' size={26} />
+                                color='#008000' size={35} />
 
                         </NavLink>
                     </Li>

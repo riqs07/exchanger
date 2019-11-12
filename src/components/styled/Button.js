@@ -3,8 +3,8 @@ import styled from 'styled-components'
 
 
 const Style = styled.button`
-border: 2px solid #408abf;
-    background-color: #408abf;
+border: 2px solid #008000;
+    background-color: #008000;
     color: #eee;
     text-decoration: none; 
     display:block;

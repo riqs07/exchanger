@@ -2,6 +2,9 @@ import React, { useState, useEffect, Fragment } from 'react'
 import DaySelect from '../components/DatePicker'
 import Selection from '../components/Selection';
 import { getHistoricalExchangeRate } from '../utils/api'
+import LineGraph from '../components/graphs/Line'
+
+
 
 
 
@@ -16,12 +19,11 @@ const Comparison = () => {
     useEffect(() => {
         const flag = checkVals()
         if (flag === true) {
-            getHistoricalExchangeRate(historicalDate, 'USD', 'GBP')
+            getHistoricalExchangeRate(historicalDate, baseCurrencey, exchangeCurrency)
                 .then(rate => setHistoricalRate(rate))
-
-            dateToNum()
         }
     }, [baseCurrencey, exchangeCurrency, historicalDate])
+
 
 
     const checkVals = () => {
@@ -31,25 +33,28 @@ const Comparison = () => {
         } else { return false }
     }
 
-    const dateToNum = () => {
-        let array = historicalDate.split('-')
 
-        let [day, month, year] = historicalDate.split('-');
-        let x = array.map(x => parseInt(x))
-        let num = x[2]
 
-        let e = new Date(historicalDate)
-        let f = new Date(month, day, year)
-        console.log(e, f, day, month, year)
-    }
 
     return (
         <Fragment >
 
             <h1>Historical Date Comparison</h1>
 
-            <h2>{historicalRate}</h2>
-            <h2>{historicalDate}</h2>
+            <h2>Current day selected:  {historicalDate}</h2>
+
+            {historicalRate && (
+                <Fragment >
+                    <h2>Rate was:  {historicalRate}</h2>
+                    <h4> 100 {baseCurrencey} was equal to {historicalRate * 100} {exchangeCurrency} </h4>
+                    <LineGraph info={{ historicalDate, baseCurrencey, exchangeCurrency }} />
+
+                </Fragment >
+
+
+            )}
+
+
             <Selection monitor={setBaseCurrencey} />
             <Selection monitor={setExchangeCurrency} />
             <DaySelect monitor={setHistoricalDate} />

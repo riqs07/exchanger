@@ -1,3 +1,5 @@
+import { FaXing } from "../../node_modules/react-icons/fa";
+
 const api = 'https://currency-converter5.p.rapidapi.com/currency/'
 const json = `?format=json`
 const apiHost = 'currency-converter5.p.rapidapi.com'
@@ -41,6 +43,14 @@ export function getHistoricalCurrencyRates(dateString, baseCurrency, conversionC
 }
 
 
+export async function getHistoricalExchangeRate(date, baseCurrency, exchangeCurrency) {
+    // Date String format : YYYY-MM-DD
+    return getHistoricalCurrencyRates(date, baseCurrency, exchangeCurrency)
+        .then(data => Object.values(data))
+        .then(res => (parseFloat(res[0].rate)))
+}
+
+
 
 export function getAvailableCurrencies() {
     return fetch(`${api}list${json}`, {
@@ -72,45 +82,6 @@ function parseAvailableCurrenncies(obj) {
 }
 
 
-async function compareAllRates() {
-
-    //// NOT WORKING 
-    return await getAvailableCurrencies()
-        .then(res => console.log(res))
-        .then(currencies => parseAvailableCurrenncies(currencies))
-        .then(x => console.log(x.ids))
-
-        // .then(x => fetchAllRates(x))
-        .then(x => console.log(x))
-
-}
-
-async function fetchAllRates(ids) {
-    const requests = ids.map((id) => {
-        return getCurrencyExchange('USD', id, 1)
-            .then((amount) => {
-                return amount
-            })
-    })
-    return Promise.all(requests)
-}
-
-async function compareTwoRates(a, b) {
-    return await getCurrencyExchange(a, b, 1)
-        .then(rate => console.log(rate))
-}
-
-
-async function compareMultipleRates(base, arrayToCompare) {
-    // Some sore of UI to select multipls conversions
-    // create an array from selection
-    // Loop over the compare rates to get the rate %
-    // then use that in graph
-}
-
-
-
-
 export function prepOptions(obj) {
     let array = []
 
@@ -130,25 +101,6 @@ export async function getExchangeRate(baseCurrency, exchangeCurrency) {
 
 }
 
-export async function getHistoricalExchangeRate(date, baseCurrency, exchangeCurrency) {
-    return getHistoricalCurrencyRates(date, baseCurrency, exchangeCurrency)
-        .then(data => Object.values(data))
-        .then(res => (parseFloat(res[0].rate)))
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 export function getCountryDatabyCurrencyCode(currency) {
     // returns object with ALL countries that use that curency
@@ -163,30 +115,6 @@ export function getCountryDatabyCurrencyCode(currency) {
 
 }
 
-function filterByCurrencyCode(item) {
-    if (item.currencies[0].code === 'USD') {
-        // only working with USD right now
-        console.log('This is set to USD at the moment')
-    }
-}
-
-
-export function filterResultsbyPopularCurrency(object) {
-    // filter results by  obj.currencies[0].code
-    // hopefully that first array item is the most popular currency and i can sort 
-    // down to  a couple of results 
-    object.filter(filterByCurrencyCode)
-
-}
-
-
-
-
-
-function getCountryDatabyName(name) {
-    return fetch(`https://restcountries.eu/rest/v2/name/${name}`)
-
-}
 
 
 

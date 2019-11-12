@@ -5,13 +5,12 @@ import styled from 'styled-components'
 
 const Text = styled.input`
  border-radius: 5px;
-  padding: 20px 30px;
+  padding: 10px 20px;
   background-color: white;
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
-  box-shadow: 0 5px 10px rbga(0, 0, 0, 0.5);
-  color: #2e526b;
-  width:4rempx;
-font-size: 1.5rem;
+  width:8rem;
+font-size: 2rem;
+color:#008000;
 `
 
 

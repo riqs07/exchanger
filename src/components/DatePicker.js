@@ -1,13 +1,13 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { parseDate } from '../utils/graphs'
 
 
 
 const DaySelect = (props) => {
 
     const { monitor } = props
-
 
     const [startDate, setStartDate] = useState(new Date())
 
@@ -18,15 +18,6 @@ const DaySelect = (props) => {
         monitor(date)
 
     }, [startDate])
-
-
-    const parseDate = (date) => {
-        date = date.toISOString()
-        let splits = date.split('T')
-        let parsed = splits[0]
-
-        return parsed
-    }
 
     return (
         <Fragment>

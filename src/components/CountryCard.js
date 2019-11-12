@@ -1,38 +1,50 @@
 import React from 'react'
 import styled from 'styled-components'
-
 import { FaRegStar, FaMapMarkedAlt, FaMapPin } from 'react-icons/fa'
 import { IoIosPeople } from 'react-icons/io'
 import { MdOpenWith } from 'react-icons/md'
 
 
 const flagStyle = {
-    height: '400px',
-    width: '600px',
-    outline: '1px solid grey'
+    height: '200px',
+    width: '300px',
+    align: 'center'
+}
+
+const hrefStyle = {
+    textDecoration: 'none',
+    fontSize: '1.5em',
+    color: 'blue',
+    display: 'block',
+    textAlign: 'center',
+    marginBottom: '10px'
+
 }
 
 const Li = styled.li`
 list-style:none;
     `
 
-const Style = styled.div`
-textalign:center;
-
-
+const Card = styled.div`
+padding: 10px 20px;
+  margin:10px;
+    border-style:solid;
+  font-family:serif;
+  border-radius:10px;
+  background-color:#fff8dc;
 `
 
 
-const CountryCard = (countries) => {
 
+const CountryCardSm = (countries) => {
     const { name, capital, area, flag,
         population, region, subregion } = countries.info
 
-
     return (
-        <Style>
-            <img src={flag} style={flagStyle} alt={`Flag  for${name}`} />
-            <h1>{name}</h1>
+
+        <Card>
+            <img src={flag} style={flagStyle} alt={`Flag  for ${name}`} />
+            <a href={`https://en.wikipedia.org/wiki/${name}`} target={'_blank'} style={hrefStyle} >{name}</a>
             <ul>
                 {capital && (
                     <Li>
@@ -60,21 +72,23 @@ const CountryCard = (countries) => {
                     <FaMapMarkedAlt color='rgb(194,57,42)' size={26} />
                     {region}
                 </Li>
-                <Li>
-                    <FaMapPin color='rgb(194,57,42)' size={26} />
-                    {subregion}
-                </Li>
+
+                {subregion && (
+                    <Li>
+                        <FaMapPin color='rgb(194,57,42)' size={26} />
+                        {subregion}
+
+                    </Li>
+
+                )}
 
 
             </ul>
 
-
-
-        </Style>
+        </Card>
 
     )
 }
 
 
-// also make a small previwe version that shows the bigger version of the card with a bit more info but then i want a small version to show on the grid as well as whenever i select a currency elsewhere like on the historical excchange page like have them bnoth show up in the direct heead to head compariosn and what not and 
-export default CountryCard
+export default CountryCardSm

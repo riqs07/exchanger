@@ -7,10 +7,19 @@ import CountryCard from './CountryCard';
 // if one then show the Country card 
 // else organize into a grid where user can then click and 
 // pill up full screen of country info
-const Grid = styled.div`
+const Grid = styled.ul`
+display:flex;
+align-content:center;
+
+flex-wrap: wrap;
 `
 
-/// has to do with how to props are being passed in 
+const Li = styled.li`
+list-style:none;
+flex-basis: 25%;
+    `
+
+
 // add a loading component 
 
 const CountryGrid = (props) => {
@@ -18,20 +27,15 @@ const CountryGrid = (props) => {
 
     return (
         <Grid>
+            {countries.map(country => {
+                return (
 
-            <ul>
+                    <Li key={country.alpha3Code}>
+                        <CountryCard info={country} />
+                    </Li>
+                )
+            })}
 
-                {countries.map(country => {
-                    return (
-
-
-                        <li key={country.alpha3Code}>
-                            <CountryCard info={country} />
-                        </li>
-
-                    )
-                })}
-            </ul>
         </Grid>
     )
 }

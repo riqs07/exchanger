@@ -65,16 +65,22 @@ const Exchange = () => {
                 <Button text={'💱💱💱'} />
 
             ) : (
-                    <Button text={exchangeAmount} />
+                    <Fragment>
+                        <Button text={exchangeAmount} />
+                        <Button text={`The conversion rate is ${conversionRate}.
+                    For every 1 ${baseCurrencey} you get ${conversionRate} of
+                    ${exchangeCurrency}
+                    `}
+
+                        />
+
+                    </Fragment>
                 )}
 
 
-            <Button text={`The conversion rate is ${conversionRate}.
-            For every 1 ${baseCurrencey} you get ${conversionRate} of
-            ${exchangeCurrency}
-            `}
 
-            />
+
+
             <Selection monitor={setBaseCurrencey} />
             <Selection monitor={setExchangeCurrency} />
         </Fragment>
