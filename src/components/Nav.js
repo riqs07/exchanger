@@ -18,9 +18,16 @@ margin-right: 10px;
 
 const Style = styled.nav`
     margin:0px;
-background-color:#2e526b;
+background-color:#008000;
 height:5vh;
 `
+
+
+const icon = {
+    paddingRight: '10px',
+    color: '#efefef',
+    size: 35
+}
 
 
 export default class Nav extends Component {
@@ -35,7 +42,7 @@ export default class Nav extends Component {
                             activeStyle={activeStyle} >
 
                             <FaHome
-                                color='#008000' size={35} />
+                                style={icon} size={icon.size} />
 
                         </NavLink>
                     </Li>
@@ -45,7 +52,7 @@ export default class Nav extends Component {
                             exact
                             activeStyle={activeStyle} >
                             <GiTakeMyMoney
-                                color='#008000' size={35} />
+                                style={icon} size={icon.size} />
                         </NavLink>
                     </Li>
                     <Li>
@@ -55,7 +62,7 @@ export default class Nav extends Component {
                             activeStyle={activeStyle}>
 
                             <FaHistory
-                                color='#008000' size={35} />
+                                style={icon} size={icon.size} />
 
                         </NavLink>
                     </Li>
@@ -66,7 +73,7 @@ export default class Nav extends Component {
                             activeStyle={activeStyle} >
 
                             <FaSearchDollar
-                                color='#008000' size={35} />
+                                style={icon} size={icon.size} />
 
                         </NavLink>
                     </Li>

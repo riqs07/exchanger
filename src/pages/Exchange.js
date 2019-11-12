@@ -2,6 +2,7 @@ import React, { useState, useEffect, Fragment } from 'react'
 import Selection from '../components/Selection';
 import Button from '../components/styled/Button'
 import TextBox from '../components/TextBox'
+import BarGraph from '../components/graphs/Bar'
 import { getExchangeRate } from '../utils/api'
 
 
@@ -17,6 +18,7 @@ const Exchange = () => {
     // error on two of the same currenct
     // text box dosent update automatically on select change 
 
+    // can prob condiotionally render instead of doing check val 
     useEffect(() => {
         const flag = checkVals()
         if (flag === true) {
@@ -25,7 +27,7 @@ const Exchange = () => {
                 .then(getExchangeAmount())
         }
 
-    }, [baseAmount, baseCurrencey, exchangeCurrency])
+    }, [baseAmount, baseCurrencey, exchangeCurrency, conversionRate])
 
     const checkVals = () => {
         if (baseAmount !== undefined &&
@@ -70,9 +72,9 @@ const Exchange = () => {
                         <Button text={`The conversion rate is ${conversionRate}.
                     For every 1 ${baseCurrencey} you get ${conversionRate} of
                     ${exchangeCurrency}
-                    `}
+                    `} />
+                        <BarGraph info={{ baseCurrencey, exchangeCurrency, conversionRate }} />
 
-                        />
 
                     </Fragment>
                 )}

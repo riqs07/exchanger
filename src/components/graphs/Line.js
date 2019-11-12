@@ -15,18 +15,19 @@ const LineGraph = (props) => {
     useEffect(() => {
         makeGraph(historicalDate, baseCurrencey, exchangeCurrency)
             .then(res => setRates(res))
-    }, )
+
+    }, [historicalDate, baseCurrencey, exchangeCurrency])
 
 
     const data = {
-        labels: ['January', 'February'],
+        labels: [historicalDate, 'Today'],
         datasets: [
             {
                 label: 'My First dataset',
                 fill: false,
                 lineTension: 0.1,
                 backgroundColor: 'rgba(75,192,192,0.4)',
-                borderColor: 'rgba(75,192,192,1)',
+                borderColor: '#008000',
                 borderCapStyle: 'butt',
                 borderDash: [],
                 borderDashOffset: 0.0,
@@ -40,7 +41,7 @@ const LineGraph = (props) => {
                 pointHoverBorderWidth: 2,
                 pointRadius: 1,
                 pointHitRadius: 10,
-                data: [rates]
+                data: rates
             }
         ]
     }
@@ -49,10 +50,9 @@ const LineGraph = (props) => {
 
 
     return (
-        <div>
-            <h2>Line Example</h2>
-            <Line data={data} />
-        </div>
+
+        <Line data={data} />
+
     )
 }
 

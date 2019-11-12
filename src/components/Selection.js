@@ -8,10 +8,8 @@ const CurrencySelect = (props) => {
 
     const { monitor } = props
 
-    // const [selected, setSelected] = useState()
     const [options, setOptions] = useState()
 
-    // make it cahces in using this hook makes in call infinit
     useEffect(() => {
         getAvailableCurrencies()
             .then(res => prepOptions(res))

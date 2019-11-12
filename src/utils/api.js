@@ -1,4 +1,3 @@
-import { FaXing } from "../../node_modules/react-icons/fa";
 
 const api = 'https://currency-converter5.p.rapidapi.com/currency/'
 const json = `?format=json`
@@ -71,15 +70,6 @@ export function getAvailableCurrencies() {
         })
 }
 
-function parseAvailableCurrenncies(obj) {
-    const stringArray = Object.values(obj)
-    const identifierArray = Object.keys(obj)
-
-    return {
-        ids: identifierArray,
-        name: stringArray
-    }
-}
 
 
 export function prepOptions(obj) {

@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react'
-import Button from '../components/styled/Button'
 
 const Home = () => {
 
@@ -8,7 +7,7 @@ const Home = () => {
 
         <Fragment>
             🏡🏡🏡🏡
- 
+
         </Fragment>
 
 

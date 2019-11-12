@@ -1,4 +1,3 @@
-import { Line } from 'react-chartjs-2';
 import { getHistoricalExchangeRate } from './api'
 
 function makeDatesArray(historicalDate) {
@@ -52,8 +51,4 @@ export async function makeGraph(historicalDate, base, exch) {
 
     return Promise.all(requests)
 
-}
-
-function graph(array) {
-    console.log(array)
 }

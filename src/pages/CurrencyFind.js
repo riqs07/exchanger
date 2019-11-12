@@ -18,6 +18,7 @@ const CurrencyFinder = () => {
 
 
     return (
+
         <Fragment>
             <h2>Which Countries use which currencies? </h2>
             <Selection monitor={setCurrency} />
@@ -25,6 +26,8 @@ const CurrencyFinder = () => {
             <CountryGrid countries={countries} />
 
         </Fragment>
+
+
     )
 }
 
