@@ -3,6 +3,8 @@ import DaySelect from '../components/DatePicker'
 import Selection from '../components/Selection';
 import { getHistoricalExchangeRate } from '../utils/api'
 import LineGraph from '../components/graphs/Line'
+import { Row25, Row50 } from '../components/styled/Grid'
+import Button from '../components/styled/Button';
 
 
 
@@ -41,23 +43,31 @@ const Comparison = () => {
 
             <h1>Historical Date Comparison</h1>
 
-            <h2>Current day selected:  {historicalDate}</h2>
 
             {historicalRate && (
-                <Fragment >
-                    <h2>Rate was:  {historicalRate}</h2>
-                    <h4> 100 {baseCurrencey} was equal to {historicalRate * 100} {exchangeCurrency} </h4>
+                <Fragment>
+                    <Row50>
+
+                        <Button text={historicalDate} />
+                        <Button text={historicalRate} />
+
+                    </Row50>
+
+
                     <LineGraph info={{ historicalDate, baseCurrencey, exchangeCurrency }} />
 
-                </Fragment >
+                </Fragment>
 
 
             )}
 
-
-            <Selection monitor={setBaseCurrencey} />
-            <Selection monitor={setExchangeCurrency} />
+            <Row50>
+                <Selection monitor={setBaseCurrencey} />
+                <Selection monitor={setExchangeCurrency} />
+            </Row50>
             <DaySelect monitor={setHistoricalDate} />
+
+
         </Fragment >
 
     )

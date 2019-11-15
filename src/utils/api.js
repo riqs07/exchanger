@@ -18,6 +18,9 @@ function getCurrencyExchange(baseCurrency, conversionCurrency, amount) {
                 throw new Error(console.log('error'))
 
             }
+
+            /// way to add multiple 
+            // console.log(data)
             return data
 
         })
@@ -73,6 +76,8 @@ export function getAvailableCurrencies() {
 
 
 export function prepOptions(obj) {
+
+    // better name 
     let array = []
 
     for (let [value, label] of Object.entries(obj)) {

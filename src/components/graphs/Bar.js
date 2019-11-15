@@ -11,6 +11,8 @@ const BarGraph = (props) => {
 
     useEffect(() => {
         setRate(conversionRate)
+        let x = rate * 1;
+        console.log(x)
 
     }, [])
 
@@ -25,7 +27,7 @@ const BarGraph = (props) => {
                 borderWidth: 1,
                 hoverBackgroundColor: 'rgba(67,160,71,0.4)',
                 hoverBorderColor: 'rgba(67,160,71,1)',
-                data: [1, conversionRate]
+                data: [1, conversionRate * 100]
             }
         ]
     }

@@ -4,6 +4,12 @@ import Button from '../components/styled/Button'
 import TextBox from '../components/TextBox'
 import BarGraph from '../components/graphs/Bar'
 import { getExchangeRate } from '../utils/api'
+import styled from 'styled-components'
+import { Row50 as Row } from '../components/styled/Grid'
+
+
+
+
 
 
 const Exchange = () => {
@@ -58,34 +64,44 @@ const Exchange = () => {
 
 
     return (
-        <Fragment>
+        <div>
+
+
             <h1>International Currency Exchange</h1>
 
-            <TextBox monitor={setBaseNum} />
 
-            {exchangeAmount === undefined ? (
-                <Button text={'💱💱💱'} />
 
-            ) : (
-                    <Fragment>
-                        <Button text={exchangeAmount} />
-                        <Button text={`The conversion rate is ${conversionRate}.
+            {
+                exchangeAmount === undefined ? (
+                    <Button text={'💱'} />
+
+                ) : (
+                        <Fragment>
+                            <Button text={`💱 Conversion Rate: ${conversionRate}`} />
+                            {/* <Button text={`The conversion rate is ${conversionRate}.
                     For every 1 ${baseCurrencey} you get ${conversionRate} of
                     ${exchangeCurrency}
-                    `} />
-                        <BarGraph info={{ baseCurrencey, exchangeCurrency, conversionRate }} />
+                    `} /> */}
+                            <BarGraph info={{ baseCurrencey, exchangeCurrency, conversionRate }} />
 
 
-                    </Fragment>
-                )}
+                        </Fragment>
+                    )
+            }
 
 
+            <Row>
+                <TextBox monitor={setBaseNum} />
+                <TextBox monitor={setExchangeNum} />
+            </Row>
 
+            <Row>
+                <Selection monitor={setBaseCurrencey} />
 
+                <Selection monitor={setExchangeCurrency} />
+            </Row>
+        </div>
 
-            <Selection monitor={setBaseCurrencey} />
-            <Selection monitor={setExchangeCurrency} />
-        </Fragment>
     )
 
 }

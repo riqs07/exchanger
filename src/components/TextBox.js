@@ -4,12 +4,17 @@ import styled from 'styled-components'
 
 const Text = styled.input`
  border-radius: 5px;
-  padding: 10px 20px;
+  padding: 10px 15px;
+font-size:1.25rem;
   background-color: white;
-  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
-  width:8rem;
-font-size: 2rem;
-color:#008000;
+color:#808080;
+border:2px solid #43a047  ;
+text-align:center;
+
+:focus {
+    border:2px solid #81c784  ;
+
+}
 `
 
 
@@ -33,9 +38,7 @@ const TextBox = (props) => {
             value={value}
             onChange={handleChange}
 
-        >
-
-        </Text>
+        />
 
     )
 }
