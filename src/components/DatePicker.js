@@ -33,6 +33,9 @@ const DaySelect = (props) => {
                 dropdownMode="select"
             />
 
+
+
+        // another date picker for the end date 
         </Fragment>
     )
 }

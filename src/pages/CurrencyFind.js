@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Fragment } from 'react'
-import Selection from '../components/Selection';
+import { CurrencySelect as Selection } from '../components/Selection';
 import { getCountryDatabyCurrencyCode } from '../utils/api'
 import CountryGrid from '../components/CountryGrid'
 

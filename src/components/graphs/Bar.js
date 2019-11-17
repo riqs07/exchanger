@@ -4,13 +4,12 @@ import { Bar } from 'react-chartjs-2';
 
 
 const BarGraph = (props) => {
-    const { baseCurrencey, exchangeCurrency, conversionRate } = props.info
+    const { baseCurrencey, exchangeCurrency, conversionRate, exchangeAmount, baseAmount } = props.info
 
 
     const [rate, setRate] = useState()
 
     useEffect(() => {
-        setRate(conversionRate)
         let x = rate * 1;
         console.log(x)
 
@@ -27,7 +26,7 @@ const BarGraph = (props) => {
                 borderWidth: 1,
                 hoverBackgroundColor: 'rgba(67,160,71,0.4)',
                 hoverBorderColor: 'rgba(67,160,71,1)',
-                data: [1, conversionRate * 100]
+                data: [baseAmount, exchangeAmount]
             }
         ]
     }

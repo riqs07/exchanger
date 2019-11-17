@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import DaySelect from '../components/DatePicker'
-import Selection from '../components/Selection';
+import { CurrencySelect as Selection, MultiCurrencySelect } from '../components/Selection';
 import { getHistoricalExchangeRate } from '../utils/api'
 import LineGraph from '../components/graphs/Line'
 import { Row25, Row50 } from '../components/styled/Grid'
@@ -16,6 +16,7 @@ const Comparison = () => {
     const [historicalDate, setHistoricalDate] = useState()
 
     const [historicalRate, setHistoricalRate] = useState()
+    const [multiExchange, arrayForMultiExchange] = useState()
 
 
     useEffect(() => {
@@ -54,7 +55,7 @@ const Comparison = () => {
                     </Row50>
 
 
-                    <LineGraph info={{ historicalDate, baseCurrencey, exchangeCurrency }} />
+                    <LineGraph info={{ historicalDate, baseCurrencey, exchangeCurrency, multiExchange }} />
 
                 </Fragment>
 
@@ -66,7 +67,7 @@ const Comparison = () => {
                 <Selection monitor={setExchangeCurrency} />
             </Row50>
             <DaySelect monitor={setHistoricalDate} />
-
+            <DaySelect monitor={setHistoricalDate} />
 
         </Fragment >
 

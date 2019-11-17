@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Fragment } from 'react'
-import Selection from '../components/Selection';
+import { CurrencySelect as Selection } from '../components/Selection';
 import Button from '../components/styled/Button'
 import TextBox from '../components/TextBox'
 import BarGraph from '../components/graphs/Bar'
@@ -82,7 +82,7 @@ const Exchange = () => {
                     For every 1 ${baseCurrencey} you get ${conversionRate} of
                     ${exchangeCurrency}
                     `} /> */}
-                            <BarGraph info={{ baseCurrencey, exchangeCurrency, conversionRate }} />
+                            <BarGraph info={{ baseCurrencey, exchangeCurrency, conversionRate, exchangeAmount, baseAmount }} />
 
 
                         </Fragment>
