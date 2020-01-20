@@ -25,6 +25,8 @@ flex-basis: 25%;
 const CountryGrid = (props) => {
     const { countries } = props
 
+
+
     return (
         <Grid>
             {countries.map(country => {

@@ -5,7 +5,7 @@ import { parseDate } from '../utils/graphs'
 
 
 
-const DaySelect = (props) => {
+export const StartDateSelect = (props) => {
 
     const { monitor } = props
 
@@ -19,10 +19,43 @@ const DaySelect = (props) => {
 
     }, [startDate])
 
+
     return (
         <Fragment>
             <DatePicker selected={startDate}
                 onChange={date => setStartDate(date)}
+                placeholderText="Click to select a date"
+                minDate={new Date("2010/01/01")}
+                maxDate={new Date()}
+                inline
+                showMonthDropdown
+                showYearDropdown
+                dropdownMode="select"
+            />
+        </Fragment>
+    )
+}
+
+
+export const EndDateSelect = (props) => {
+
+    const { monitor } = props
+
+    const [endDate, setEndDate] = useState(new Date())
+
+    useEffect(() => {
+        // this can come up to compairson component 
+        // so that i can query api on info based on a  select component 
+        let date = parseDate(endDate)
+        monitor(date)
+
+    }, [endDate])
+
+
+    return (
+        <Fragment>
+            <DatePicker selected={endDate}
+                onChange={date => setEndDate(date)}
                 placeholderText="Click to select a date"
                 minDate={new Date("2010/01/01")}
                 maxDate={new Date()}
@@ -32,11 +65,6 @@ const DaySelect = (props) => {
                 showYearDropdown
                 dropdownMode="select"
             />
-
-
-
-        // another date picker for the end date 
         </Fragment>
     )
 }
-export default DaySelect

@@ -35,6 +35,7 @@ const TextBox = (props) => {
 
         <Text
             type='number'
+            min="0"
             value={value}
             onChange={handleChange}
 

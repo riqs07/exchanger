@@ -1,9 +1,9 @@
 import { getHistoricalExchangeRate } from './api'
 
-export function makeDatesArray(historicalDate) {
+export function makeDatesArray(historicalStartDate, historicalEndDate) {
 
-    let start = new Date(historicalDate)
-    let end = new Date()
+    let start = new Date(historicalStartDate)
+    let end = new Date(historicalEndDate)
     let year = start.getFullYear()
     let month = start.getMonth()
     let day = start.getDate()
@@ -26,6 +26,11 @@ export function makeDatesArray(historicalDate) {
 
     // }
 
+    // for (let index = 0; index < array.length; index++) {
+    //     const element = array[index];
+
+    // }
+
     return datesToSend
 }
 
@@ -38,9 +43,8 @@ export function parseDate(date) {
     return parsed
 }
 
-export async function makeGraph(historicalDate, base, exch) {
-    let x = makeDatesArray(historicalDate)
-    console.log(x)
+export async function makeGraph(historicalStartDate, historicalEndDate, base, exch) {
+    let x = makeDatesArray(historicalStartDate, historicalEndDate)
 
     const requests = x.map((date) => {
         return getHistoricalExchangeRate(date, base, exch)
@@ -50,6 +54,16 @@ export async function makeGraph(historicalDate, base, exch) {
 
 }
 
+// export async function singleCurrencyLine(historicalStartDate, historicalEndDate, currency) {
+//     let x = makeDatesArray(historicalStartDate, historicalEndDate)
+
+//     const requests = x.map((date) => {
+//         return getHistoricalExchangeRate(date, base, exch)
+//     })
+
+//     return Promise.all(requests)
+
+// }
 
 export async function makeGraph2(historicalDate, base, exch) {
     let x = makeDatesArray(historicalDate)
@@ -82,3 +96,12 @@ export async function multiGraph(historicalDate, base, array) {
     // return await xx
 }
 
+
+function zzz(delimeter) {
+
+    for (let index = 0; index < delimeter; index++) {
+        console.log('ss')
+    }
+
+}
+zzz(5)

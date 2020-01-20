@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Fragment } from 'react'
-import DaySelect from '../components/DatePicker'
+import { StartDateSelect, EndDateSelect } from '../components/DatePicker'
 import { CurrencySelect as Selection, MultiCurrencySelect } from '../components/Selection';
 import { getHistoricalExchangeRate } from '../utils/api'
 import LineGraph from '../components/graphs/Line'
@@ -13,19 +13,22 @@ import Button from '../components/styled/Button';
 const Comparison = () => {
     const [baseCurrencey, setBaseCurrencey] = useState()
     const [exchangeCurrency, setExchangeCurrency] = useState()
-    const [historicalDate, setHistoricalDate] = useState()
+    const [historicalStartDate, setHistoricalStartDate] = useState()
+    const [historicalEndDate, setHistoricalEndDate] = useState()
 
     const [historicalRate, setHistoricalRate] = useState()
     const [multiExchange, arrayForMultiExchange] = useState()
+    const [loading, setLoading] = useState(false)
 
-
+    // dont even think i need to add the historical rate
+    //i think its an artifact from before i had the graphs implmented 
     useEffect(() => {
         const flag = checkVals()
         if (flag === true) {
-            getHistoricalExchangeRate(historicalDate, baseCurrencey, exchangeCurrency)
+            getHistoricalExchangeRate(historicalStartDate, baseCurrencey, exchangeCurrency)
                 .then(rate => setHistoricalRate(rate))
         }
-    }, [baseCurrencey, exchangeCurrency, historicalDate])
+    }, [baseCurrencey, exchangeCurrency, historicalStartDate])
 
 
 
@@ -36,29 +39,37 @@ const Comparison = () => {
         } else { return false }
     }
 
+    const foo = () => {
+        console.log('show line graph over time ')
+    }
 
 
+    const inverseCurrencies = () => {
+        let x = baseCurrencey
+
+        setBaseCurrencey(exchangeCurrency)
+        setExchangeCurrency(x)
+
+        console.log('find a way for invers to go on select boxes')
+    }
 
     return (
         <Fragment >
 
             <h1>Historical Date Comparison</h1>
 
-
             {historicalRate && (
                 <Fragment>
                     <Row50>
 
-                        <Button text={historicalDate} />
+                        <Button text={historicalStartDate} />
                         <Button text={historicalRate} />
 
                     </Row50>
-
-
-                    <LineGraph info={{ historicalDate, baseCurrencey, exchangeCurrency, multiExchange }} />
+                    <LineGraph info={{ historicalStartDate, historicalEndDate, baseCurrencey, exchangeCurrency }} />
+                    <Button onClick={inverseCurrencies} text='Inverse 🔀' />
 
                 </Fragment>
-
 
             )}
 
@@ -66,10 +77,31 @@ const Comparison = () => {
                 <Selection monitor={setBaseCurrencey} />
                 <Selection monitor={setExchangeCurrency} />
             </Row50>
-            <DaySelect monitor={setHistoricalDate} />
-            <DaySelect monitor={setHistoricalDate} />
+
+            <Row50>
+                <StartDateSelect monitor={setHistoricalStartDate} />
+                <EndDateSelect monitor={setHistoricalEndDate} />
+            </Row50>
+
+            < Fragment >
+                <Row50>
+                    {baseCurrencey && (
+                        <Button onClick={foo} text={`Show rate for ${baseCurrencey} over time`} />
+
+                    )}
+                    {exchangeCurrency && (
+                        <Button onClick={foo} text={`Show rate for ${exchangeCurrency} over time`} />
+
+                    )}
+                </Row50>
+
+            </Fragment>
+
+
 
         </Fragment >
+
+
 
     )
 }

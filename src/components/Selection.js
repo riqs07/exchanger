@@ -11,7 +11,7 @@ const CurrencySelect = (props) => {
 
     const [options, setOptions] = useState()
 
-    // const [selected,setSelected] = useState()
+    const [selected, setSelected] = useState()
 
     useEffect(() => {
         getAvailableCurrencies()
@@ -21,7 +21,7 @@ const CurrencySelect = (props) => {
 
 
     const handleSelect = (e) => {
-        // setSelected(e.value)
+        setSelected(e.value)
         monitor(e.value)
     }
 
@@ -30,7 +30,7 @@ const CurrencySelect = (props) => {
         <Select
             onChange={handleSelect}
             options={options}
-            placeholder={'Select Currency 💱💱'}
+            placeholder={'Select a Currency 💱💱'}
         />
 
     )

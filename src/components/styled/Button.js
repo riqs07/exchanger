@@ -19,7 +19,9 @@ border: 2px solid #008000;
 const Button = (props) => {
     return (
 
-        <Style>
+        <Style
+            onClick={props.onClick}
+        >
             {props.text}
         </Style>
     )

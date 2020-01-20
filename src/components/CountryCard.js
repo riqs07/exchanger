@@ -20,9 +20,6 @@ const hrefStyle = {
     textAlign: 'center',
     marginBottom: '10px',
     fontfamily: 'Roboto'
-
-
-
 }
 
 const icon = {
