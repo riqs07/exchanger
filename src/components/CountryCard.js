@@ -8,8 +8,8 @@ import { MdOpenWith } from 'react-icons/md'
 const flagStyle = {
     height: '200px',
     width: '300px',
-    align: 'center',
-    border: '1px solid #d3d3d3'
+    border: '1px solid #d3d3d3',
+    margin: 'auto'
 }
 
 const hrefStyle = {

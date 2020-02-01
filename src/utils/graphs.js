@@ -1,9 +1,9 @@
 import { getHistoricalExchangeRate } from './api'
 
-export function makeDatesArray(historicalStartDate, historicalEndDate) {
+export function makeDatesArray(dateRange) {
 
-    let start = new Date(historicalStartDate)
-    let end = new Date(historicalEndDate)
+    let start = new Date(dateRange[0])
+    let end = new Date(dateRange[1])
     let year = start.getFullYear()
     let month = start.getMonth()
     let day = start.getDate()
@@ -15,21 +15,6 @@ export function makeDatesArray(historicalStartDate, historicalEndDate) {
     }
 
     let datesToSend = dates.map(parseDate)
-
-
-    // pass in an amount of days to increment by 5D 10D 20D 
-    // inside while loop only push the one that goes up by increment 
-    // push final value
-
-    // while (dates[dates.lengthlength] !== end){
-    //     dates.push(new Date(year, month, ++day));
-
-    // }
-
-    // for (let index = 0; index < array.length; index++) {
-    //     const element = array[index];
-
-    // }
 
     return datesToSend
 }
@@ -43,65 +28,91 @@ export function parseDate(date) {
     return parsed
 }
 
-export async function makeGraph(historicalStartDate, historicalEndDate, base, exch) {
-    let x = makeDatesArray(historicalStartDate, historicalEndDate)
-
-    const requests = x.map((date) => {
-        return getHistoricalExchangeRate(date, base, exch)
-    })
-
-    return Promise.all(requests)
-
-}
-
-// export async function singleCurrencyLine(historicalStartDate, historicalEndDate, currency) {
-//     let x = makeDatesArray(historicalStartDate, historicalEndDate)
-
-//     const requests = x.map((date) => {
-//         return getHistoricalExchangeRate(date, base, exch)
-//     })
-
-//     return Promise.all(requests)
-
-// }
-
-export async function makeGraph2(historicalDate, base, exch) {
-    let x = makeDatesArray(historicalDate)
-
-    const requests = x.map((date) => {
-        return getHistoricalExchangeRate(date, base, exch)
-    })
-
-    return requests
 
 
 
-}
+// Trying to get the labels and the actual content to match the new delimited array 
 
+export async function makeGraph(dateRange, base, exch, preset) {
 
+    // feel like this is a sloppy solution 
+    // feel like passing in default is meh 
+    if (preset === 'default') {
+        let x = makeDatesArray(dateRange)
+        const requests = x.map((date) => {
+            return getHistoricalExchangeRate(date, base, exch)
+        })
 
+        return Promise.all(requests)
 
-export async function multiGraph(historicalDate, base, array) {
+    } else {
 
-    return await array.forEach(currency => makeGraph2(historicalDate, base, currency)
-        .then()
-    )
+        let x = getPresetDateRange(dateRange, preset)
 
+        const requests = x.map((date) => {
+            return getHistoricalExchangeRate(date, base, exch)
+        })
 
-
-    // console.log(array, xx)
-
-    // for each exhcange rate prep its onw line 
-    // let xx = array.map(x => makeGraph(historicalDate, base, `${x}`))
-    // return await xx
-}
-
-
-function zzz(delimeter) {
-
-    for (let index = 0; index < delimeter; index++) {
-        console.log('ss')
+        return Promise.all(requests)
     }
 
+
+
 }
-zzz(5)
+
+
+/// The thing is with these presets is that it should take in just the start date and 
+// go back a set amount of time while also using the delimeter to go faster
+// should work when i go back 
+
+
+
+/// i think this need to happen before it gets passed into the line graph 
+/// taht way the labels update
+export function getPresetDateRange(dateRange, preset) {
+
+    console.log(preset)
+
+    let datesArray = makeDatesArray(dateRange)
+    let parsedArray = []
+    let delimeter
+
+    switch (preset) {
+
+        case '6m':
+            delimeter = 2
+            break;
+
+        case '12m':
+            // 1 year
+            delimeter = 5
+            break;
+
+        case '36m':
+            // 3 years
+            delimeter = 10
+            break;
+
+        case '60m':
+            // 5 years
+            delimeter = 20
+            break;
+
+        case '120m':
+            // 10 years
+            delimeter = 50
+            break;
+    }
+
+
+    for (let index = 0; index < datesArray.length; index++) {
+        if (index % delimeter === 0) {
+            parsedArray.push(datesArray[index])
+        }
+    }
+    return parsedArray
+}
+
+
+
+

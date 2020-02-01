@@ -2,10 +2,8 @@ import React, { useState, useEffect, Fragment } from 'react'
 import { CurrencySelect as Selection } from '../components/Selection';
 import Button from '../components/styled/Button'
 import TextBox from '../components/TextBox'
-import BarGraph from '../components/graphs/Bar'
 import { getExchangeRate } from '../utils/api'
 
-import styled from 'styled-components'
 import PopularContainer from '../components/PopularContainer'
 import { Row50 as Row } from '../components/styled/Grid'
 
@@ -53,13 +51,13 @@ const Exchange = () => {
         <div>
             <h1>International Currency Exchange</h1>
             {
-                exchangeAmount == undefined ? (
+                exchangeAmount === undefined ? (
                     <Button text={'Please select a currency!'} />
 
                 ) : (
                         <Fragment>
                             <Button text={`💱 Conversion Rate: ${conversionRate}`} />
-                            <Button text={`💱 Exchange Amount : ${exchangeAmount}`} />
+                            <Button text={`💲 Exchange Amount : ${exchangeAmount}`} />
                             <PopularContainer info={baseCurrencey} />
                         </Fragment>
                     )

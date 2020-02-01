@@ -28,6 +28,7 @@ function getCurrencyExchange(baseCurrency, conversionCurrency, amount) {
 
 
 export function getHistoricalCurrencyRates(dateString, baseCurrency, conversionCurrency) {
+
     // Date String format : YYYY-MM-DD
     return fetch(`${api}historical/${dateString}${json}&to=${conversionCurrency}&from=${baseCurrency}&${1}`, {
         "method": "GET",
@@ -106,6 +107,20 @@ export function getCountryDatabyCurrencyCode(currency) {
                 throw new Error(console.log(data.error.message))
             }
             return data
+        })
+
+}
+
+
+export function getCountryFlagbyISOCode(code) {
+    // returns object with ALL countries that use that curency
+    return fetch(`https://restcountries.eu/rest/v2/alpha/${code}`)
+        .then(res => res.json())
+        .then(data => {
+            if (data.error) {
+                throw new Error(console.log(data.error.message))
+            }
+            return data.flag
         })
 
 }

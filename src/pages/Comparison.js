@@ -1,12 +1,21 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import { StartDateSelect, EndDateSelect } from '../components/DatePicker'
-import { CurrencySelect as Selection, MultiCurrencySelect } from '../components/Selection';
+import { CurrencySelect as Selection } from '../components/Selection';
 import { getHistoricalExchangeRate } from '../utils/api'
 import LineGraph from '../components/graphs/Line'
-import { Row25, Row50 } from '../components/styled/Grid'
+import { Row50 } from '../components/styled/Grid'
+import { getPresetDateRange } from '../utils/graphs'
+import styled from 'styled-components'
+
 import Button from '../components/styled/Button';
 
 
+const Grid = styled.div`
+display:flex;
+align-content:center;
+
+flex-wrap: wrap;
+`
 
 
 
@@ -16,21 +25,20 @@ const Comparison = () => {
     const [historicalStartDate, setHistoricalStartDate] = useState()
     const [historicalEndDate, setHistoricalEndDate] = useState()
 
-    const [historicalRate, setHistoricalRate] = useState()
-    const [multiExchange, arrayForMultiExchange] = useState()
-    const [loading, setLoading] = useState(false)
+    // const [historicalRate, setHistoricalRate] = useState()
+    const [dateRange, setDateRange] = useState()
+    const [preset, setPreset] = useState('default')
 
-    // dont even think i need to add the historical rate
-    //i think its an artifact from before i had the graphs implmented 
+
     useEffect(() => {
-        const flag = checkVals()
-        if (flag === true) {
-            getHistoricalExchangeRate(historicalStartDate, baseCurrencey, exchangeCurrency)
-                .then(rate => setHistoricalRate(rate))
-        }
-    }, [baseCurrencey, exchangeCurrency, historicalStartDate])
+        setDateRange([historicalStartDate, historicalEndDate])
+
+    }, [historicalStartDate, historicalEndDate,])
 
 
+    const setPresets = (e) => {
+        setPreset(e.target.value)
+    }
 
     const checkVals = () => {
         if (baseCurrencey !== undefined &&
@@ -39,10 +47,8 @@ const Comparison = () => {
         } else { return false }
     }
 
-    const foo = () => {
-        console.log('show line graph over time ')
-    }
-
+    let flag = checkVals()
+    // really dont like this as a solution to get the presets to render but i cant find a way to get it to render based on two condtions 
 
     const inverseCurrencies = () => {
         let x = baseCurrencey
@@ -53,21 +59,31 @@ const Comparison = () => {
         console.log('find a way for invers to go on select boxes')
     }
 
+
+    // Maybe make line graph accept an array?
+    // and have that date range array live in state?
+
     return (
         <Fragment >
 
-            <h1>Historical Date Comparison</h1>
+            <h1>Historical Data Comparison</h1>
 
-            {historicalRate && (
+            {flag && (
                 <Fragment>
-                    <Row50>
 
-                        <Button text={historicalStartDate} />
-                        <Button text={historicalRate} />
+                    <Button text={`Range from ${dateRange[0]} to ${dateRange[1]}`} />
 
-                    </Row50>
-                    <LineGraph info={{ historicalStartDate, historicalEndDate, baseCurrencey, exchangeCurrency }} />
-                    <Button onClick={inverseCurrencies} text='Inverse 🔀' />
+                    <LineGraph info={{ dateRange, baseCurrencey, exchangeCurrency, preset }} />
+
+                    <Grid>
+                        <Button onClick={setPresets} value={'6m'} text='6m' />
+                        <Button onClick={setPresets} value={'12m'} text='1y' />
+                        <Button onClick={setPresets} value={'36m'} text='3y' />
+                        <Button onClick={setPresets} value={'60m'} text='5y' />
+                        <Button onClick={setPresets} value={'120m'} text='Max' />
+                        <Button onClick={inverseCurrencies} text='Inverse 🔀' />
+
+                    </Grid>
 
                 </Fragment>
 
@@ -82,22 +98,6 @@ const Comparison = () => {
                 <StartDateSelect monitor={setHistoricalStartDate} />
                 <EndDateSelect monitor={setHistoricalEndDate} />
             </Row50>
-
-            < Fragment >
-                <Row50>
-                    {baseCurrencey && (
-                        <Button onClick={foo} text={`Show rate for ${baseCurrencey} over time`} />
-
-                    )}
-                    {exchangeCurrency && (
-                        <Button onClick={foo} text={`Show rate for ${exchangeCurrency} over time`} />
-
-                    )}
-                </Row50>
-
-            </Fragment>
-
-
 
         </Fragment >
 
