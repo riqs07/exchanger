@@ -76,11 +76,10 @@ const Comparison = () => {
                     <LineGraph info={{ dateRange, baseCurrencey, exchangeCurrency, preset }} />
 
                     <Grid>
-                        <Button onClick={setPresets} value={'6m'} text='6m' />
-                        <Button onClick={setPresets} value={'12m'} text='1y' />
-                        <Button onClick={setPresets} value={'36m'} text='3y' />
-                        <Button onClick={setPresets} value={'60m'} text='5y' />
-                        <Button onClick={setPresets} value={'120m'} text='Max' />
+                        <Button onClick={setPresets} value={1} text='1y' />
+                        <Button onClick={setPresets} value={3} text='3y' />
+                        <Button onClick={setPresets} value={5} text='5y' />
+                        <Button onClick={setPresets} value={10} text='Max' />
                         <Button onClick={inverseCurrencies} text='Inverse 🔀' />
 
                     </Grid>

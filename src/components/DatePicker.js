@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { parseDate } from '../utils/graphs'
+import { parseDateToString } from '../utils/graphs'
 
 
 
@@ -14,7 +14,7 @@ export const StartDateSelect = (props) => {
     useEffect(() => {
         // this can come up to compairson component 
         // so that i can query api on info based on a  select component 
-        let date = parseDate(startDate)
+        let date = parseDateToString(startDate)
         monitor(date)
 
     }, [startDate])
@@ -46,7 +46,7 @@ export const EndDateSelect = (props) => {
     useEffect(() => {
         // this can come up to compairson component 
         // so that i can query api on info based on a  select component 
-        let date = parseDate(endDate)
+        let date = parseDateToString(endDate)
         monitor(date)
 
     }, [endDate])
